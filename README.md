@@ -1,15 +1,15 @@
-### 本仓库是 zh_pinyin_decoder 的 Arduino 移植版本，将原本的文件系统操作改为了 LittleFS 或 FatFS(FFat), 将一些常用函数(如: word_match, char_match)封装的更简单易用了, 加入了类, 并进行了 ESP32 上的测试，制作成了Arduino库结构。
+## 本仓库是 zh_pinyin_decoder 的 Arduino 移植版本，将原本的文件系统操作改为了 LittleFS 或 FatFS(FFat), 将一些常用函数 (如: word_match, char_match)封装的更简单易用了, 加入了类, 并进行了 ESP32 上的测试，制作成了Arduino库结构。
 
 ### 推荐使用 RAM 和 Flash 较为充裕的单片机 (如: \[推荐\]ESP32系列), 否则 可能需要在 user_config.h 中某些降低配置
 
-### 使用方法：
+## 使用方法：
 
-#### 1.去 Release 下载 [zh_pinyin_decoder-arduino](https://github.com/ioqite/zh_pinyin_decoder-arduino/release/latest)
+### 1.去 Release 下载 [zh_pinyin_decoder-arduino](https://github.com/ioqite/zh_pinyin_decoder-arduino/releases/latest)
 
-#### 2.添加到 Arduino 库目录中, 如果使用 PlatformIO, 请参照 example 目录下的 test_all-platformio
-#### **!!!!! 如使用 PlatformIO 开发, 必须将 zh_pinyin_decoder-arduino库 复制到 example的lib 中**
+### 2.添加到 Arduino 库目录中, 如果使用 PlatformIO, 请参照 example 目录下的 test_all-platformio
+### **!!!!! 如使用 PlatformIO 开发, 必须将 zh_pinyin_decoder-arduino库 复制到 example的lib 中**
 
-#### \[可选\] 3.在 user_config.h 中修改 Flash内用于存储 拼音码表和词库(json)文件 的文件系统:  \[推荐\] FatFS(FFat) 或 LittleFS：
+### \[可选\] 3.在 user_config.h 中修改 Flash内用于存储 拼音码表和词库(json)文件 的文件系统:  \[推荐\] FatFS(FFat) 或 LittleFS：
 
 ```cpp
 // 选择文件系统 (不要同时选择)
@@ -17,55 +17,38 @@
 #define USE_LITTLE_FS            0  // 使用LittleFS 文件系统
 ```
 
-#### \[可选\] 4.在 user_config.h 中修改 是否使用日志 及 日志输出方式
+### \[可选\] 4.在 user_config.h 中修改 是否使用日志 及 日志输出方式
 
 
-#### 5.烧录文件系统：
+### 5.烧录文件系统：
 
 > 注: 在本库的根目录下提供了 推荐的 ESP32 分区表 (zh_pinyin_ffat_partition.csv), 该分区表适用于 Flash 为 8MiB及以上 的单片机, 可自行更改 ffat/spiffs(也就是littlefs)分区大小 以适配 Flash
 > 原词库 和 原拼音码表 均存放在 ffat_data 目录中
 
-##### (1) 使用 默认拼音码表与词库 或 制作文件系统
-**\[推荐\]** 如果使用 默认拼音码表与词库， 就无需制作文件系统，直接跳至 (2) 即可
+#### (1) 使用 默认拼音码表与词库 或 自定义
+** \[推荐\] 如果使用 默认拼音码表与词库， 就无需制作文件系统，直接跳至 (2) 即可 **
 
-**写完此文档后我发现 PlatformIO 中好像可以直接制作 FFat 的镜像, 待我有时间了, 就去更新此文档**
-自定义拼音码表与词库，此处以 Linux 中为例, 其他系统可根据 [esp32_fatfsimage](https://github.com/marcmerlin/esp32_fatfsimage) 的源代码 (.cpp) 自行编译
+自定义拼音码表与词库，PlatformIO 中为以下步骤 (Arduino可参考 [ESP32 Arduino FAT文件系统详细使用教程](https://blog.csdn.net/weixin_42880082/article/details/129156012)):
+打开本 example (VSCode或其他), 按以下步骤点击, 以制作文件系统:
 
-使用 marcmerlin/esp32_fatfsimage 提供的工具 fatfsimage (Linux版 在本库的根目录下有其副本) 来制作 FatFS(FFat) 文件系统:
+<img>
 
-首先, 将 分区表中 ffat分区 的大小\(Size\)转换为 10进制, 再除以 1024, 该结果为 FFat 文件系统的大小 (单位: KiB)
-下一步, 运行以下命令 制作文件系统镜像:
-```bash
-./fatfsimage -l5 <要制作的镜像文件名> <FFat 文件系统的大小 (单位: KiB)> <存放要写入数据的目录路径>
-```
-例如: 
-```bash
-./fatfsimage -l5 ffat.bin 5008 ./ffat_data
-```
 
-##### (2) 根据 单片机类型 烧录文件系统，此处以 ESP32 为例
-**如使用 默认镜像 和 默认分区表, 直接运行 下面的示例 即可**
+#### (2) 根据单片机类型 烧录文件系统，此处以 ESP32 为例
 
-运行以下命令 烧录文件系统到 ESP32 (确保已安装 esptool 工具):
-```bash
-esptool --baud 921600 write_flash <分区表中 ffat分区 的偏移位置\(Offset\)> <镜像文件路径>
-```
-示例:
-```bash
-esptool --baud 921600 write_flash 0x310000 ffat.bin
-```
+PlatformIO 中为以下步骤(Arduino可参考 [ESP32 Arduino FAT文件系统详细使用教程](https://blog.csdn.net/weixin_42880082/article/details/129156012)):
+按以下步骤点击, 以烧录文件系统:
 
-#### 6.开始使用吧 ！
+
+### 6.开始使用吧 ！
 
 详细使用方法, 见 examples
 > 示例程序位于 examples 目录下
 
-**注意：在使用前，需要先初始化拼音识别器，调用** `zh_pinyin_begin()` **函数。**
-**在使用完成后，需要调用** `zh_pinyin_end()` **函数关闭拼音识别器。**
 
+--------
 
-
-## 以下是原 README.md：
+# 以下是原 README.md：
 
 =============== ⭐😀UPDATE TO VERSION V1.6 😀⭐ ==================
 
