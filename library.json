@@ -1,0 +1,24 @@
+{
+    "name": "zh_pinyin_decoder-arduino",
+    "version": "2.0-arduino",
+    "description": "zh_pinyin_decoder 的 Arduino 移植版本",
+    "keywords": "arduino, pinyin, decoder",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ioqite/zh_pinyin_decoder-arduino.git"
+    },
+    "authors": [{
+        "name": "FriedParrot",
+        "url": "https://github.com/FriedParrot"
+    },{
+        "name": "Ioqit",
+        "email": "ioqit@xsz.qzz.io",
+        "url": "https://github.com/ioqite",
+        "maintainer": true
+    }],
+    "license": "MIT",
+    "homepage": "https://github.com/ioqite/zh_pinyin_decoder-arduino",
+    "dependencies": {},
+    "frameworks": "arduino",
+    "platforms": "*"
+}
