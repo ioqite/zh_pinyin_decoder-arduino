@@ -1,13 +1,13 @@
-## 本仓库是 zh_pinyin_decoder 的 Arduino 移植版本，将原本的文件系统操作改为了 LittleFS 或 FatFS(FFat), 将一些常用函数 (如: word_match, char_match)封装的更简单易用了, 加入了类, 并进行了 ESP32 上的测试，制作成了Arduino库结构。
+## 本仓库是 [zh_pinyin_decoder](https://github.com/FRIEDparrot/zh_pinyin_decoder) 的 Arduino 移植版本，将原本的文件系统操作改为了 LittleFS 或 FatFS(FFat)，将一些常用函数 (如: word_match, char_match) 封装的更简单易用了，加入了类，并进行了 ESP32 上的测试，制作成了Arduino库结构。
 
-### 推荐使用 RAM 和 Flash 较为充裕的单片机 (如: \[推荐\]ESP32系列), 否则 可能需要在 user_config.h 中某些降低配置
+### 推荐使用 RAM 和 Flash 较为充裕的单片机 (如: ESP32系列), 否则 可能需要在 user_config.h 中某些降低配置
 
 ## 使用方法：
 
 ### 1.去 Release 下载 [zh_pinyin_decoder-arduino](https://github.com/ioqite/zh_pinyin_decoder-arduino/releases/latest)
 
 ### 2.添加到 Arduino 库目录中, 如果使用 PlatformIO, 请参照 example 目录下的 test_all-platformio
-### **!!!!! 如使用 PlatformIO 开发, 必须将 zh_pinyin_decoder-arduino库 复制到 example的lib 中**
+### !!!!! 如使用 PlatformIO 开发, 必须将 zh_pinyin_decoder-arduino库 复制到 example的lib 中
 
 ### \[可选\] 3.在 user_config.h 中修改 Flash内用于存储 拼音码表和词库(json)文件 的文件系统:  \[推荐\] FatFS(FFat) 或 LittleFS：
 
@@ -38,6 +38,8 @@
 
 PlatformIO 中为以下步骤(Arduino可参考 [ESP32 Arduino FAT文件系统详细使用教程](https://blog.csdn.net/weixin_42880082/article/details/129156012)):
 按以下步骤点击, 以烧录文件系统:
+
+<img>
 
 
 ### 6.开始使用吧 ！
