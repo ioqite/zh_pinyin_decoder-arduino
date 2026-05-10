@@ -31,7 +31,7 @@
 自定义拼音码表与词库，PlatformIO 中为以下步骤 (Arduino可参考 [ESP32 Arduino FAT文件系统详细使用教程](https://blog.csdn.net/weixin_42880082/article/details/129156012)):
 打开本 example (VSCode或其他), 按以下步骤点击, 以制作文件系统:
 
-<img>
+<img width="352" height="631" alt="build-fs-in-pio" src="https://github.com/user-attachments/assets/ff46aaaf-71f7-44c7-b5e6-835d5d97733d" />
 
 
 #### (2) 根据单片机类型 烧录文件系统，此处以 ESP32 为例
@@ -39,7 +39,7 @@
 PlatformIO 中为以下步骤(Arduino可参考 [ESP32 Arduino FAT文件系统详细使用教程](https://blog.csdn.net/weixin_42880082/article/details/129156012)):
 按以下步骤点击, 以烧录文件系统:
 
-<img>
+<img width="352" height="631" alt="flash-fs-in-pio" src="https://github.com/user-attachments/assets/c02fbe80-7bd6-46b3-83a1-0c37a9362eb3" />
 
 
 ### 6.开始使用吧 ！
